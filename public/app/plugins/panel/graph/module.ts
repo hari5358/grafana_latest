@@ -111,6 +111,11 @@ class GraphCtrl extends MetricsPanelCtrl {
     // other style overrides
     seriesOverrides: [],
     thresholds: [],
+    bar_label: {
+      show: true,
+      values: false,
+    },
+    // stats for for display value on bar chart
   };
 
   /** @ngInject */

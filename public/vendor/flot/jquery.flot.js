@@ -2320,6 +2320,8 @@ Licensed under the MIT license.
                 drawSeriesBars(series);
             if (series.points.show)
                 drawSeriesPoints(series);
+            if (series.bar_label.show) 
+                drawSeriesLabel(series);        
         }
 
         function drawSeriesLines(series) {
@@ -2573,6 +2575,78 @@ Licensed under the MIT license.
 
             if (lw > 0)
                 plotLine(series.datapoints, 0, 0, series.xaxis, series.yaxis);
+            ctx.restore();
+        }
+
+        // display label function
+        function drawSeriesLabel(series) {
+            function plotLabels(datapoints, radius, fillStyle, offset, shadow, axisx, axisy, symbol) {
+                var points = datapoints.points, ps = datapoints.pointsize;
+                
+                // var data = series.stats;
+                // var bar_label = series.bar_label;
+                // console.log(stats, 'series stats');
+                
+
+                for (var i = 0; i < points.length; i += ps) {
+                    var stats = series.stats;
+                    // console.log(stats.delta, 'series stassabdsadhj');
+                    var x = points[i], y = points[i + 1];
+                    if (x == null || x < axisx.min || x > axisx.max || y < axisy.min || y > axisy.max)
+                        continue;
+
+                    // ctx.beginPath();
+                    x = axisx.p2c(x);
+                    y = axisy.p2c(y) + offset;
+                    if (symbol == "circle")
+                        // ctx.arc(x, y, radius, 0, shadow ? Math.PI : Math.PI * 2, false);
+                        ctx.font = "16px Arial";
+                        ctx.fillStyle = '#52545c';
+                        // ctx.textMargin = 'right';
+                        ctx.fillText(Math.round(points[i + 1] / 100) / 10 + " MW", x, y);
+                }
+
+                
+            }
+
+            ctx.save();
+            ctx.translate(plotOffset.left, plotOffset.top);
+
+            var lw = series.points.lineWidth,
+                sw = series.shadowSize,
+                radius = series.points.radius,
+                symbol = series.points.symbol;
+                
+
+            // If the user sets the line width to 0, we change it to a very
+            // small value. A line width of 0 seems to force the default of 1.
+            // Doing the conditional here allows the shadow setting to still be
+            // optional even with a lineWidth of 0.
+
+            if( lw == 0 )
+                lw = 0.0001;
+            
+
+            if (lw > 0 && sw > 0) {
+                // draw shadow in two steps
+                var w = sw / 2;
+                ctx.lineWidth = w;rg
+                ctx.strokeStyle = "ba(0,0,0,0.1)";
+                plotLabels(series.datapoints, radius, null, w + w/2, true,
+                           series.xaxis, series.yaxis, symbol);
+
+                ctx.strokeStyle = "rgba(0,0,0,0.2)";    
+                // plotLabels(series.datapoints, radius, null, w/2, true,
+                //            series.xaxis, series.yaxis, symbol, series.bar_label);
+            }
+            
+            ctx.lineWidth = lw;
+            ctx.strokeStyle = series.color;
+            // console.log(series,'series flot');
+            plotLabels(series.datapoints, radius,
+                       getFillStyle(series.points, series.color, series.legend.min), 0, false,
+                       series.xaxis, series.yaxis, symbol, series.bar_label);
+                       
             ctx.restore();
         }
 

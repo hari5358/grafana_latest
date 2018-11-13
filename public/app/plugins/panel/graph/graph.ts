@@ -107,6 +107,7 @@ class GraphElement {
 
   onLegendRenderingComplete() {
     this.render_panel();
+    this.render_label();
   }
 
   onGraphHover(evt) {
@@ -275,6 +276,12 @@ class GraphElement {
     return min;
   }
 
+  // // function to
+  render_label() {
+    // sortedSeries = sortSeries(data, panel);
+    console.log(this.data, 'kjdhkjdnkjkjqkjew');
+  }
+
   // Function for rendering panel
   render_panel() {
     this.panelWidth = this.elem.width();
@@ -297,6 +304,7 @@ class GraphElement {
 
     this.sortedSeries = this.sortSeries(this.data, this.panel);
     this.callPlot(options, true);
+    this.render_label();
   }
 
   buildFlotPairs(data) {
@@ -416,6 +424,9 @@ class GraphElement {
           fill: 1,
           fillColor: false,
           radius: panel.points ? panel.pointradius : 2,
+        },
+        bar_label: {
+          show: panel.bar_label,
         },
         shadowSize: 0,
       },

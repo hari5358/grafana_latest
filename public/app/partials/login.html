@@ -1,7 +1,7 @@
-<div class="login container">
+<div class="login container" style="display: none">
   <div class="login-content">
     <div class="login-branding">
-      <img class="logo-icon" src="public/img/grafana_icon.svg" alt="Grafana" />
+      <img class="logo-icon" src="public/img/foretell-logo.jpg" alt="Foretell" />
       <div class="logo-wordmark" />
     </div>
     <div class="login-outer-box">
@@ -109,3 +109,32 @@
     </div>
   </div>
 </div>
+
+<section class="wrapper login_wrapper">
+  <div class="container">
+    <div class="login-panel">
+      <div class="login_header">
+        <img class="logo-icon" src="public/img/login-logo.png" alt="Foretell"/>
+      </div>
+      <div class="login_form">
+        <form ng-hide="disableLoginForm" name="loginForm">
+          <div class="form-group">
+            <label class="form-control-label">USER NAME</label>
+            <input type="text" name="username" class="form-control" required ng-model='formModel.user' placeholder="User Name"
+                   autofocus>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">PASSWORD</label>
+            <input type="password" name="password" class="form-control" required ng-model="formModel.password" id="inputPassword1"
+                   placeholder="password">
+          </div>
+          <div class="form-group">
+            <button class="submit_btn" ng-click="submit();">SIGN IN</button>
+          </div>
+          <div class="forget-pass"><a href="user/password/send-reset-email">Forgot Password or Username?</a></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
